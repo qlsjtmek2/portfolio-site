@@ -24,7 +24,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b border-black dark:border-white">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">

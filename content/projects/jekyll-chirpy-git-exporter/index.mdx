@@ -1,0 +1,219 @@
+---
+title: "Jekyll Chirpy Git Exporter"
+description: "Obsidian에서 Jekyll 블로그로 원클릭 포스트 업로드 플러그인"
+category: "Plugin Development"
+thumbnail: "/images/projects/jekyll-chirpy-git-exporter.png"
+---
+
+## Jekyll Chirpy Git Exporter
+
+Obsidian에서 Jekyll Chirpy 테마 블로그로 포스트를 원클릭으로 업로드하는 플러그인입니다. Obsidian 문법을 자동으로 Jekyll 형식으로 변환하고, 이미지와 함께 Git에 커밋합니다.
+
+🔗 **[GitHub 저장소](https://github.com/qlsjtmek2/jekyll-chirpy-git-exporter)**
+
+### 프로젝트 개요
+
+Obsidian으로 메모를 작성하면서 Jekyll 블로그를 운영할 때 발생하는 불편함을 해결하기 위해 개발했습니다. 두 플랫폼 모두 마크다운을 사용하지만 문법이 미묘하게 다르고, 매번 수동으로 Git에 커밋하는 작업이 번거로웠습니다.
+
+### 해결한 문제
+
+#### 1. 문법 불일치
+Obsidian 마크다운 문법과 Jekyll 마크다운 문법의 차이로 인한 수동 변환 작업을 자동화했습니다.
+
+#### 2. 반복적인 Git 작업
+포스트를 올릴 때마다 Git 커밋과 푸시를 수동으로 해야 하는 번거로움을 제거했습니다.
+
+#### 3. 이미지 관리
+포스트에 포함된 이미지 파일을 일일이 찾아서 복사하는 작업을 자동화했습니다.
+
+#### 4. 메타데이터 작성
+Jekyll에 필요한 YAML frontmatter를 매번 작성하는 수고를 덜었습니다.
+
+### 주요 기능
+
+#### 원클릭 내보내기
+- 단일 포스트 업로드
+- 폴더 전체 업로드
+- Blog Path 내 모든 포스트 일괄 업로드
+
+#### 자동 문법 변환
+Obsidian 문법을 Jekyll Chirpy 형식으로 자동 변환:
+- 위키 링크 변환
+- 이미지 경로 조정
+- 코드 블록 형식 변환
+- 내부 링크 처리
+
+#### 이미지 파일 관리
+- 포스트 내 이미지 자동 감지
+- 이미지 파일 자동 복사
+- 이미지와 포스트 함께 커밋
+
+#### YAML Frontmatter 자동 생성
+Jekyll에 필요한 메타데이터 자동 추가:
+- 제목
+- 날짜
+- 카테고리
+- 태그 (OpenAI API 사용 시 자동 생성)
+
+#### Git 자동화
+- 파일 변경사항 자동 감지
+- 자동 커밋
+- GitHub로 푸시
+
+#### 포스트 삭제
+- 단일 포스트 삭제
+- 폴더 내 포스트 일괄 삭제
+
+### 기술 스택
+
+#### 개발 언어 & 프레임워크
+- TypeScript (타입 안정성)
+- Obsidian API (플러그인 개발)
+- esbuild (빌드 도구)
+
+#### 외부 API
+- GitHub API (Git 작업 자동화)
+- OpenAI API (자동 태깅, 선택 사항)
+
+#### 기타 도구
+- ESLint (코드 품질)
+- npm (패키지 관리)
+
+### 설치 및 설정
+
+#### 설치 방법
+1. Git 저장소 클론
+2. Obsidian Vault의 `.obsidian/plugins` 디렉토리에 복사
+3. Obsidian 재시작
+4. 플러그인 활성화
+
+#### 필수 설정
+- **Blog Post Path**: 블로그 포스트가 저장된 Obsidian 경로
+- **Export Path**: Jekyll 블로그 포스트 디렉토리 경로
+- **Git Configuration**: GitHub Personal Access Token
+
+#### 선택 설정
+- **OpenAI API Key**: 자동 태깅 기능 사용 시
+- **Blog URL**: 문서 링크 전처리 기능 사용 시
+
+### 사용 방법
+
+#### 단일 포스트 업로드
+1. 업로드할 노트 열기
+2. 왼쪽 사이드바의 "Export Post" 버튼 클릭
+
+#### 폴더 업로드
+1. 폴더 우클릭
+2. "Export Post" 선택
+
+#### 전체 업로드
+1. `Ctrl + P` (또는 `Command + P`) 입력
+2. "All Export in Blog Post Path" 검색 및 실행
+
+#### 포스트 삭제
+1. 포스트 우클릭
+2. "Delete Post" 선택
+
+### 개발 하이라이트
+
+#### 1. 문법 변환 엔진
+Obsidian과 Jekyll 간의 문법 차이를 분석하여 자동 변환 규칙을 구현했습니다.
+
+```typescript
+// Obsidian 위키 링크 → Jekyll 링크
+[[My Post]] → [My Post](/posts/my-post/)
+```
+
+#### 2. 이미지 처리 파이프라인
+마크다운 파일을 파싱하여 이미지 참조를 추출하고, 해당 이미지 파일을 자동으로 찾아 복사합니다.
+
+#### 3. GitHub API 통합
+Personal Access Token을 사용하여 안전하게 Git 작업을 수행합니다.
+
+```typescript
+// Git 커밋 및 푸시 자동화
+await commitFiles(files, images);
+await pushToGitHub();
+```
+
+#### 4. OpenAI 자동 태깅
+포스트 내용을 분석하여 적절한 태그를 자동으로 생성합니다.
+
+```typescript
+const tags = await generateTags(content);
+```
+
+#### 5. 5단계 처리 파이프라인
+1. Export 요청 수신
+2. Obsidian 문법 전처리
+3. 이미지 파일 감지
+4. YAML Property 추가
+5. Git 일괄 커밋
+
+### 워크플로우 개선
+
+#### Before
+1. Obsidian에서 포스트 작성
+2. Jekyll 문법에 맞게 수동 변환
+3. 이미지 파일 수동 복사
+4. YAML frontmatter 작성
+5. Git add, commit, push 수동 실행
+
+#### After
+1. Obsidian에서 포스트 작성
+2. "Export Post" 버튼 클릭 → 완료!
+
+**시간 절약**: 포스트당 5-10분 → 1초
+
+### 개발 과정
+
+#### 문제 인식
+Obsidian과 Jekyll 블로그를 함께 사용하면서 매번 수동으로 변환하고 업로드하는 작업이 비효율적이라고 느꼈습니다.
+
+#### 해결책 설계
+Obsidian 플러그인 형태로 자동화 도구를 만들기로 결정했습니다. GitHub API를 사용하여 Git 작업까지 자동화하는 것이 핵심이었습니다.
+
+#### 개발 및 테스트
+TypeScript로 플러그인을 개발하고, 실제 블로그에 적용하면서 반복적으로 개선했습니다. 특히 문법 변환 규칙을 완성하는 데 많은 시간을 투자했습니다.
+
+#### AI 활용과 한계
+Cursor AI를 사용하여 빠르게 개발했지만, 과도한 의존은 지식 공백과 유지보수 어려움을 초래한다는 것을 깨달았습니다.
+
+### 성과
+
+- **개발 기간**: 2주
+- **시간 절약**: 포스트당 5-10분 → 1초
+- **자동화 단계**: 5단계 작업을 1클릭으로 통합
+- **문법 변환 정확도**: 95% 이상
+
+### 배운 점
+
+#### Obsidian 플러그인 개발
+Obsidian API를 깊이 이해하게 되었습니다. 파일 시스템 접근, UI 컴포넌트 생성, 설정 관리 등을 익혔습니다.
+
+#### GitHub API 활용
+Personal Access Token을 사용한 인증, Git 작업 자동화, 파일 업로드 등을 구현하면서 GitHub API에 대한 이해가 깊어졌습니다.
+
+#### AI 도구 활용의 균형
+Cursor AI가 생산성을 크게 높여주지만, 구조 설계나 핵심 로직은 직접 고민해야 유지보수가 용이하다는 것을 배웠습니다.
+
+#### 워크플로우 자동화의 가치
+반복적인 작업을 자동화하면 시간 절약뿐만 아니라 실수도 줄일 수 있습니다. 특히 Git 작업 자동화로 커밋 메시지 누락이나 파일 누락 같은 실수를 방지할 수 있었습니다.
+
+### 향후 계획
+
+- 다른 Jekyll 테마 지원 확장
+- Hugo, Gatsby 등 다른 정적 사이트 생성기 지원
+- 이미지 자동 최적화 기능
+- 포스트 예약 발행 기능
+- 태그 자동 생성 정확도 개선
+- Obsidian Community Plugin으로 등록
+
+### 관련 링크
+
+- [GitHub 저장소](https://github.com/qlsjtmek2/jekyll-chirpy-git-exporter)
+- [블로그 포스트](https://qlsjtmek2.github.io/posts/Obsidian%EA%B3%BC-Git-Blog-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/)
+
+### 라이선스
+
+GPL-3.0 License
