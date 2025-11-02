@@ -9,9 +9,9 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`} className="group block">
-      <div className="overflow-hidden rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:scale-[1.02]">
+      <div className="overflow-hidden rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:scale-[1.02]">
         {/* Project Image */}
-        <div className="relative aspect-video bg-gray-200 dark:bg-gray-800">
+        <div className="relative aspect-video bg-gray-200 dark:bg-gray-700">
           {project.thumbnail ? (
             <Image
               src={project.thumbnail}

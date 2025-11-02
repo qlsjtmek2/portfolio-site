@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {/* Project Header */}
       <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-gray-900 dark:text-white">
           {project.title}
         </h1>
         {project.category && (

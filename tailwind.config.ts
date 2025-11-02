@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -17,11 +18,11 @@ const config: Config = {
         DEFAULT: {
           css: {
             // 기본 텍스트 색상
-            color: theme('colors.gray.300'),
+            color: theme('colors.gray.700'),
 
             // 제목 스타일
             h1: {
-              color: theme('colors.white'),
+              color: theme('colors.gray.900'),
               fontWeight: '700',
               fontSize: '2.5rem',
               marginTop: '2rem',
@@ -30,7 +31,7 @@ const config: Config = {
               letterSpacing: '-0.02em',
             },
             h2: {
-              color: theme('colors.white'),
+              color: theme('colors.gray.900'),
               fontWeight: '600',
               fontSize: '2rem',
               marginTop: '2rem',
@@ -39,7 +40,7 @@ const config: Config = {
               letterSpacing: '-0.01em',
             },
             h3: {
-              color: theme('colors.white'),
+              color: theme('colors.gray.900'),
               fontWeight: '600',
               fontSize: '1.5rem',
               marginTop: '1.5rem',
@@ -58,11 +59,11 @@ const config: Config = {
 
             // 링크
             a: {
-              color: theme('colors.blue.400'),
+              color: theme('colors.blue.600'),
               textDecoration: 'none',
               fontWeight: '500',
               '&:hover': {
-                color: theme('colors.blue.300'),
+                color: theme('colors.blue.700'),
                 textDecoration: 'underline',
               },
             },
@@ -82,8 +83,8 @@ const config: Config = {
 
             // 코드 블록
             code: {
-              color: theme('colors.pink.400'),
-              backgroundColor: theme('colors.gray.800'),
+              color: theme('colors.pink.600'),
+              backgroundColor: theme('colors.gray.100'),
               padding: '0.25rem 0.5rem',
               borderRadius: '0.25rem',
               fontSize: '0.875rem',
@@ -98,8 +99,8 @@ const config: Config = {
 
             // 인용문
             blockquote: {
-              color: theme('colors.gray.400'),
-              borderLeftColor: theme('colors.gray.700'),
+              color: theme('colors.gray.600'),
+              borderLeftColor: theme('colors.gray.300'),
               borderLeftWidth: '4px',
               paddingLeft: '1.5rem',
               fontStyle: 'italic',
@@ -109,7 +110,7 @@ const config: Config = {
 
             // 구분선
             hr: {
-              borderColor: theme('colors.gray.800'),
+              borderColor: theme('colors.gray.200'),
               marginTop: '3rem',
               marginBottom: '3rem',
             },
@@ -125,6 +126,56 @@ const config: Config = {
             table: {
               fontSize: '1rem',
             },
+            thead: {
+              borderBottomColor: theme('colors.gray.300'),
+            },
+            'tbody tr': {
+              borderBottomColor: theme('colors.gray.200'),
+            },
+          },
+        },
+        invert: {
+          css: {
+            // 다크모드 기본 텍스트 색상
+            color: theme('colors.gray.300'),
+
+            // 다크모드 제목 스타일
+            h1: {
+              color: theme('colors.white'),
+            },
+            h2: {
+              color: theme('colors.white'),
+            },
+            h3: {
+              color: theme('colors.white'),
+            },
+
+            // 다크모드 링크
+            a: {
+              color: theme('colors.blue.400'),
+              '&:hover': {
+                color: theme('colors.blue.300'),
+              },
+            },
+
+            // 다크모드 코드 블록
+            code: {
+              color: theme('colors.pink.400'),
+              backgroundColor: theme('colors.gray.800'),
+            },
+
+            // 다크모드 인용문
+            blockquote: {
+              color: theme('colors.gray.400'),
+              borderLeftColor: theme('colors.gray.700'),
+            },
+
+            // 다크모드 구분선
+            hr: {
+              borderColor: theme('colors.gray.800'),
+            },
+
+            // 다크모드 테이블
             thead: {
               borderBottomColor: theme('colors.gray.700'),
             },
