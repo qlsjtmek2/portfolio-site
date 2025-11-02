@@ -130,6 +130,30 @@ cp my-image.jpg public/images/projects/my-project.jpg
 
 ## 🎨 커스터마이징
 
+### 게시글 스타일 (폰트, 여백, 행간)
+
+**파일:** `tailwind.config.ts`
+
+프로젝트 상세 페이지의 폰트 크기, 자간, 행간, 여백을 한 곳에서 조정할 수 있습니다.
+
+자세한 내용은 **[STYLING_GUIDE.md](STYLING_GUIDE.md)** 참고
+
+**빠른 예시:**
+```typescript
+// tailwind.config.ts
+typography: (theme: any) => ({
+  DEFAULT: {
+    css: {
+      p: {
+        fontSize: '1.125rem',    // 본문 크기
+        lineHeight: '1.75',      // 행간
+        letterSpacing: '0.01em', // 자간
+      },
+    },
+  },
+}),
+```
+
 ### 색상 테마
 
 `app/globals.css`에서 CSS 변수를 수정하세요:
@@ -144,11 +168,6 @@ cp my-image.jpg public/images/projects/my-project.jpg
 ### 레이아웃
 
 `app/layout.tsx`에서 내비게이션 및 푸터를 커스터마이징할 수 있습니다.
-
-### 타이포그래피
-
-Tailwind Typography 플러그인을 사용하여 MDX 콘텐츠의 스타일이 자동으로 적용됩니다.
-`prose-invert` 클래스로 다크 모드 스타일이 적용됩니다.
 
 ## 📦 배포
 
