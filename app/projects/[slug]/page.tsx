@@ -27,7 +27,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {/* Back Button */}
       <Link
         href="/"
-        className="inline-flex items-center text-gray-400 hover:text-white transition mb-8"
+        className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition mb-8"
       >
         <svg
           className="w-5 h-5 mr-2"
@@ -46,7 +46,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </Link>
 
       {/* Project Header - Hero Section */}
-      <header className="mb-12 -mx-4 bg-gradient-to-b from-gray-900 to-gray-900/50 border-y border-gray-800">
+      <header className="mb-12 -mx-4 bg-gradient-to-b from-gray-100 to-gray-100/50 dark:from-gray-900 dark:to-gray-900/50 border-y border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4 py-20 md:py-28 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight">
             {project.title}
@@ -55,16 +55,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </header>
 
       {/* MDX Content */}
-      <article className="prose prose-invert prose-lg max-w-none bg-gray-900/50 rounded-lg p-8 border border-gray-800/50">
+      <article className="prose dark:prose-invert prose-lg max-w-none bg-gray-100/50 dark:bg-gray-900/50 rounded-lg p-8 border border-gray-200/50 dark:border-gray-800/50">
         <MDXRemote source={project.content} />
       </article>
 
       {/* Privacy Policy Link */}
       {project.hasPrivacyPolicy && (
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
           <Link
             href={`/projects/${slug}/privacy`}
-            className="inline-flex items-center text-blue-400 hover:text-blue-300 transition"
+            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
           >
             개인정보처리방침 보기
             <svg

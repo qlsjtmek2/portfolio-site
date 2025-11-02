@@ -9,9 +9,9 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`} className="group block">
-      <div className="overflow-hidden rounded-lg bg-gray-900 border border-gray-800 transition-all hover:border-gray-600 hover:scale-[1.02]">
+      <div className="overflow-hidden rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:scale-[1.02]">
         {/* Project Image */}
-        <div className="relative aspect-video bg-gray-800">
+        <div className="relative aspect-video bg-gray-200 dark:bg-gray-800">
           {project.thumbnail ? (
             <Image
               src={project.thumbnail}
@@ -20,7 +20,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               className="object-cover"
             />
           ) : (
-            <div className="flex items-center justify-center h-full text-gray-600">
+            <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-600">
               <span className="text-4xl">{project.title[0]}</span>
             </div>
           )}
@@ -28,14 +28,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Project Info */}
         <div className="p-6">
-          <h3 className="text-xl font-bold mb-2 group-hover:text-gray-300 transition leading-snug tracking-tight">
+          <h3 className="text-xl font-bold mb-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition leading-snug tracking-tight">
             {project.title}
           </h3>
           {project.category && (
-            <p className="text-sm text-gray-300 mb-3 leading-normal tracking-normal">{project.category}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 leading-normal tracking-normal">{project.category}</p>
           )}
           {project.description && (
-            <p className="text-gray-200 line-clamp-2 leading-relaxed tracking-tight">{project.description}</p>
+            <p className="text-gray-700 dark:text-gray-200 line-clamp-2 leading-relaxed tracking-tight">{project.description}</p>
           )}
         </div>
       </div>
