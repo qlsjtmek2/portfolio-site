@@ -45,19 +45,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         Back to projects
       </Link>
 
-      {/* Project Header */}
-      <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
-        {project.category && (
-          <p className="text-lg text-gray-500 mb-4">{project.category}</p>
-        )}
-        {project.description && (
-          <p className="text-xl text-gray-400">{project.description}</p>
-        )}
+      {/* Project Header - Hero Section */}
+      <header className="mb-12 -mx-4 bg-gradient-to-b from-gray-900 to-gray-900/50 border-y border-gray-800">
+        <div className="container mx-auto px-4 py-20 md:py-28 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight">
+            {project.title}
+          </h1>
+        </div>
       </header>
 
       {/* MDX Content */}
-      <article className="prose prose-invert prose-lg max-w-none">
+      <article className="prose prose-invert prose-lg max-w-none bg-gray-900/50 rounded-lg p-8 border border-gray-800/50">
         <MDXRemote source={project.content} />
       </article>
 
