@@ -106,7 +106,19 @@ thumbnail: "/images/projects/thumbnail.jpg"
 프로젝트에 대한 개인정보처리방침을 마크다운으로 작성하세요.
 ```
 
-4. 썸네일 이미지를 `public/images/projects/` 디렉토리에 추가
+4. (선택) 썸네일 이미지 추가:
+
+```bash
+# 이미지를 public/images/projects/ 디렉토리에 저장
+cp my-image.jpg public/images/projects/my-project.jpg
+
+# MDX frontmatter에 추가
+# thumbnail: "/images/projects/my-project.jpg"
+```
+
+**이미지가 없어도 됩니다!** 이미지가 없으면 프로젝트 제목의 첫 글자가 표시됩니다.
+
+자세한 이미지 추가 방법은 [HOW_TO_ADD_IMAGES.md](HOW_TO_ADD_IMAGES.md)를 참고하세요.
 
 ## 🔗 URL 구조
 
