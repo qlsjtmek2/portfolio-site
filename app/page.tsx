@@ -8,10 +8,10 @@ export default async function Home() {
     <div className="container mx-auto px-4 py-12">
       {/* Hero Section */}
       <section className="mb-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-500 bg-clip-text text-transparent leading-tight tracking-tight">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900 dark:text-white leading-tight tracking-tight">
           Creative Portfolio
         </h1>
-        <p className="text-xl text-gray-700 dark:text-gray-200 max-w-2xl mx-auto leading-relaxed tracking-tight">
+        <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed tracking-tight">
           개인 작업물을 모아놓은 포트폴리오입니다.
         </p>
       </section>

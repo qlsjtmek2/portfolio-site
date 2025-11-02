@@ -27,7 +27,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {/* Back Button */}
       <Link
         href="/"
-        className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition mb-8"
+        className="inline-flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition mb-8"
       >
         <svg
           className="w-5 h-5 mr-2"
@@ -45,17 +45,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         Back to projects
       </Link>
 
-      {/* Project Header - Hero Section */}
-      <header className="mb-12 -mx-4 bg-gradient-to-b from-gray-100 to-gray-100/50 dark:from-gray-900 dark:to-gray-900/50 border-y border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto px-4 py-20 md:py-28 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight">
-            {project.title}
-          </h1>
-        </div>
+      {/* Project Header */}
+      <header className="mb-12">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          {project.title}
+        </h1>
+        {project.category && (
+          <p className="text-lg text-gray-600 dark:text-gray-400">{project.category}</p>
+        )}
       </header>
 
       {/* MDX Content */}
-      <article className="prose dark:prose-invert prose-lg max-w-none bg-gray-100/50 dark:bg-gray-900/50 rounded-lg p-8 border border-gray-200/50 dark:border-gray-800/50">
+      <article className="prose dark:prose-invert prose-lg max-w-none">
         <MDXRemote source={project.content} />
       </article>
 
