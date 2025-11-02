@@ -1,5 +1,6 @@
 import { getProjects } from "@/lib/projects";
 import ProjectCard from "@/components/ProjectCard";
+import Image from "next/image";
 
 export default async function Home() {
   const projects = await getProjects();
@@ -33,11 +34,14 @@ export default async function Home() {
         <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
           {/* Profile Header: Image + Name + Title */}
           <div className="flex items-center gap-4 mb-6">
-            <img
-              src="/images/profile.jpg"
-              alt="Huigon Shin"
-              className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
-            />
+            <div className="relative w-20 h-20 flex-shrink-0">
+              <Image
+                src="/images/profile.jpg"
+                alt="Huigon Shin"
+                fill
+                className="rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+              />
+            </div>
             <div>
               <h3 className="text-2xl font-bold mb-1 leading-snug tracking-tight">Huigon Shin</h3>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-normal tracking-normal">Full-stack Developer</p>
