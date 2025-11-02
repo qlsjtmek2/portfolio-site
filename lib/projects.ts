@@ -15,6 +15,13 @@ export interface Project {
 const projectsDirectory = path.join(process.cwd(), "content/projects");
 
 /**
+ * basePath를 가져옵니다 (프로덕션 환경에서만 적용).
+ */
+const getBasePath = (): string => {
+  return process.env.NEXT_PUBLIC_BASE_PATH || '';
+};
+
+/**
  * 모든 프로젝트 목록을 가져옵니다.
  */
 export async function getProjects(): Promise<Project[]> {
@@ -57,12 +64,18 @@ export function getProject(slug: string): Project {
   const privacyPath = path.join(projectDir, "privacy.mdx");
   const hasPrivacyPolicy = fs.existsSync(privacyPath);
 
+  // thumbnail 경로에 basePath 추가 (절대 경로인 경우)
+  const basePath = getBasePath();
+  const thumbnail = data.thumbnail && data.thumbnail.startsWith('/')
+    ? `${basePath}${data.thumbnail}`
+    : data.thumbnail;
+
   return {
     slug,
     title: data.title || slug,
     description: data.description,
     category: data.category,
-    thumbnail: data.thumbnail,
+    thumbnail,
     content,
     hasPrivacyPolicy,
   };

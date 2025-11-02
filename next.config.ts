@@ -1,14 +1,20 @@
 import type { NextConfig } from "next";
 import createMDX from '@next/mdx';
 
+const isProd = process.env.NODE_ENV === 'production';
+const basePath = isProd ? '/portfolio-site' : '';
+
 const nextConfig: NextConfig = {
   output: 'export',
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/portfolio-site' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/portfolio-site' : '',
+  basePath,
+  assetPrefix: basePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
 };
 
 const withMDX = createMDX({
