@@ -1,6 +1,12 @@
 # Portfolio Site
 
-개인 작업물을 소개하는 포트폴리오 사이트입니다.
+Next.js 15와 MDX로 구축한 개인 포트폴리오 사이트입니다. GitHub Pages를 통해 정적 사이트로 배포됩니다.
+
+## 📋 현재 프로젝트
+
+1. **Jekyll Chirpy Git Exporter** - Obsidian에서 Jekyll 블로그로 원클릭 포스트 업로드 플러그인
+2. **개인 포트폴리오 사이트** - Next.js 15와 MDX로 구축한 정적 포트폴리오 웹사이트
+3. **Retro Runner** - 80년대 아케이드 감성의 레트로 러너 게임
 
 ## ✨ 주요 기능
 
@@ -16,7 +22,7 @@
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS + Typography Plugin
 - **Content**: MDX (마크다운)
-- **Deployment**: Vercel (권장)
+- **Deployment**: GitHub Pages (정적 export)
 
 ## 📁 프로젝트 구조
 
@@ -58,17 +64,13 @@ npm run dev
 
 브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
 
-### 빌드
+### 빌드 (정적 export)
 
 ```bash
 npm run build
 ```
 
-### 프로덕션 서버 실행
-
-```bash
-npm start
-```
+빌드가 완료되면 `out/` 디렉토리에 정적 HTML 파일이 생성됩니다.
 
 ## 📝 새 프로젝트 추가하기
 
@@ -171,20 +173,53 @@ typography: (theme: any) => ({
 
 ## 📦 배포
 
-### Vercel (권장)
+### GitHub Pages (현재 설정)
 
-1. Vercel에 GitHub 레포지토리 연결
-2. 자동으로 배포 설정이 감지됩니다
-3. 배포 완료!
+이 프로젝트는 GitHub Pages를 통해 자동으로 배포됩니다.
+
+#### 설정 방법
+
+1. GitHub 저장소 Settings → Pages
+2. Source: **GitHub Actions** 선택
+3. `main` 브랜치에 푸시하면 자동 배포
+
+#### 주요 설정 파일
+
+**`next.config.ts`**
+```typescript
+const isProd = process.env.NODE_ENV === 'production';
+const basePath = isProd ? '/portfolio-site' : '';
+
+const nextConfig = {
+  output: 'export',           // 정적 HTML 생성
+  basePath,                   // GitHub Pages 서브 경로
+  assetPrefix: basePath,      // 자산 경로 접두사
+  images: {
+    unoptimized: true,        // GitHub Pages 호환
+  },
+};
+```
+
+**`.github/workflows/deploy.yml`**
+- `main` 브랜치 푸시 시 자동 빌드 및 배포
+- `npm run build` 실행 → `out/` 디렉토리 생성
+- GitHub Pages에 정적 파일 배포
+
+#### 배포 URL
+
+```
+https://{username}.github.io/portfolio-site/
+```
 
 ### 다른 플랫폼
 
-Next.js는 다양한 플랫폼에 배포 가능합니다:
+정적 export를 지원하는 다른 플랫폼에도 배포 가능:
+- Vercel
 - Netlify
 - AWS Amplify
-- Docker
+- Cloudflare Pages
 
-자세한 내용은 [Next.js 배포 문서](https://nextjs.org/docs/deployment)를 참고하세요.
+자세한 내용은 [Next.js 정적 export 문서](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)를 참고하세요.
 
 ## 📄 라이선스
 

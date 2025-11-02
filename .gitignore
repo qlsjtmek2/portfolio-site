@@ -1,5 +1,6 @@
 # Claude Code 설정 및 문서
 .claude/
+CLAUDE.md
 CLAUDE_CODE_*.md
 CLAUDE_INTEGRATION_*.md
 
