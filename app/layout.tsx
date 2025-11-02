@@ -4,8 +4,26 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "개인 작업물 포트폴리오",
+  title: "Portfolio - Huigon Shin",
+  description: "개인 작업물 포트폴리오 | Full-stack Developer",
+  keywords: ["portfolio", "web development", "full-stack", "developer", "포트폴리오"],
+  authors: [{ name: "Huigon Shin", url: "https://github.com/qlsjtmek2" }],
+  creator: "Huigon Shin",
+
+  openGraph: {
+    title: "Portfolio - Huigon Shin",
+    description: "개인 작업물 포트폴리오 | Full-stack Developer",
+    url: "https://qlsjtmek2.github.io/portfolio-site/",
+    siteName: "Portfolio",
+    locale: "ko_KR",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio - Huigon Shin",
+    description: "개인 작업물 포트폴리오 | Full-stack Developer",
+  },
 };
 
 export default function RootLayout({
