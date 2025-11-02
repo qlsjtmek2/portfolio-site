@@ -2,6 +2,8 @@ import { getProjects } from "@/lib/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Image from "next/image";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default async function Home() {
   const projects = await getProjects();
 
@@ -36,7 +38,7 @@ export default async function Home() {
           <div className="flex items-center gap-4 mb-6">
             <div className="relative w-20 h-20 flex-shrink-0">
               <Image
-                src="/images/profile.jpg"
+                src={`${basePath}/images/profile.jpg`}
                 alt="Huigon Shin"
                 fill
                 className="rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
