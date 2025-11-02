@@ -13,6 +13,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
       <body className="antialiased">
         <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b border-gray-800">
           <div className="container mx-auto px-4 py-4">
@@ -36,7 +44,7 @@ export default function RootLayout({
         </main>
         <footer className="border-t border-gray-800 py-8 mt-20">
           <div className="container mx-auto px-4 text-center text-gray-500">
-            <p>© 2025 Portfolio. All rights reserved.</p>
+            <p>© 2025 Huigon Shin. All rights reserved.</p>
           </div>
         </footer>
       </body>

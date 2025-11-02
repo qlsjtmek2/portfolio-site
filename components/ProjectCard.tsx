@@ -28,14 +28,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Project Info */}
         <div className="p-6">
-          <h3 className="text-xl font-bold mb-2 group-hover:text-gray-300 transition">
+          <h3 className="text-xl font-bold mb-2 group-hover:text-gray-300 transition leading-snug tracking-tight">
             {project.title}
           </h3>
           {project.category && (
-            <p className="text-sm text-gray-500 mb-3">{project.category}</p>
+            <p className="text-sm text-gray-300 mb-3 leading-normal tracking-normal">{project.category}</p>
           )}
           {project.description && (
-            <p className="text-gray-400 line-clamp-2">{project.description}</p>
+            <p className="text-gray-200 line-clamp-2 leading-relaxed tracking-tight">{project.description}</p>
           )}
         </div>
       </div>
