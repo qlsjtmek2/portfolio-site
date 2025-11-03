@@ -78,7 +78,7 @@ export default async function Home() {
               GitHub
             </a>
             <a
-              href="https://qlsjtmek2.github.io/"
+              href="https://qlsjtmek2.github.io/portfolio-site"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg transition text-gray-800 dark:text-gray-200"
