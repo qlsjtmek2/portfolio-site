@@ -31,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
@@ -46,14 +48,14 @@ export default function RootLayout({
         <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b border-black dark:border-white">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
-              <a href="/" className="text-xl font-bold hover:text-gray-600 dark:hover:text-gray-300 transition">
+              <a href={`${basePath}/`} className="text-xl font-bold hover:text-gray-600 dark:hover:text-gray-300 transition">
                 Portfolio
               </a>
               <div className="flex items-center gap-6">
-                <a href="/#works" className="hover:text-gray-600 dark:hover:text-gray-300 transition">
+                <a href={`${basePath}/#works`} className="hover:text-gray-600 dark:hover:text-gray-300 transition">
                   Works
                 </a>
-                <a href="/#about" className="hover:text-gray-600 dark:hover:text-gray-300 transition">
+                <a href={`${basePath}/#about`} className="hover:text-gray-600 dark:hover:text-gray-300 transition">
                   About
                 </a>
                 <ThemeToggle />
