@@ -30,7 +30,8 @@ export async function getProjects(): Promise<Project[]> {
     return [];
   }
 
-  const slugs = fs.readdirSync(projectsDirectory);
+  const slugs = fs.readdirSync(projectsDirectory)
+    .filter((slug) => !slug.startsWith('.'));
 
   const projects = slugs
     .map((slug) => {
@@ -105,5 +106,6 @@ export function getProjectSlugs(): string[] {
     return [];
   }
 
-  return fs.readdirSync(projectsDirectory);
+  return fs.readdirSync(projectsDirectory)
+    .filter((slug) => !slug.startsWith('.'));
 }
