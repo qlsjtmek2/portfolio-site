@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getProject, getProjectSlugs } from "@/lib/projects";
+import { mdxComponents } from "@/components/mdx";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -57,7 +58,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {/* MDX Content */}
       <article className="prose dark:prose-invert prose-lg max-w-none">
-        <MDXRemote source={project.content} />
+        <MDXRemote source={project.content} components={mdxComponents} />
       </article>
 
       {/* Privacy Policy Link */}

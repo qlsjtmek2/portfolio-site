@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getPrivacyPolicy, getProject, getProjectSlugs } from "@/lib/projects";
+import { mdxComponents } from "@/components/mdx";
 
 interface PrivacyPageProps {
   params: Promise<{ slug: string }>;
@@ -58,7 +59,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
 
       {/* MDX Content */}
       <article className="prose dark:prose-invert prose-lg max-w-none">
-        <MDXRemote source={privacyPolicy.content} />
+        <MDXRemote source={privacyPolicy.content} components={mdxComponents} />
       </article>
     </div>
   );
