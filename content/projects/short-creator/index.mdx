@@ -1,0 +1,140 @@
+---
+title: "Short Creator"
+description: "AI 기반 쇼츠 자동 생성기 - Unified Rendering Engine으로 미리보기와 최종 영상을 픽셀 단위로 일치시키다"
+category: "Web/AI"
+thumbnail: "/images/projects/short-creator-thumbnail.png"
+date: "2026-01"
+tags: ["Next.js", "Node.js", "FFmpeg", "AI", "Gemini", "Canvas API"]
+links:
+  - type: "github"
+    url: "https://github.com/shine-jung/short-creator"
+---
+
+## 프로젝트 개요
+
+Short Creator는 Gemini AI가 대본을 쓰고, Pexels가 이미지를 찾고, ElevenLabs가 목소리를 입혀 자동으로 쇼츠를 생성하는 시스템입니다. 단순한 자동화를 넘어, **웹 미리보기와 최종 렌더링 결과가 픽셀 단위로 완벽하게 일치**하는 Unified Rendering Engine을 구현했습니다.
+
+<video controls width="100%" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+  <source src="/videos/short-creator-example.mp4" type="video/mp4" />
+  생성된 쇼츠 예시
+</video>
+
+### 핵심 기능
+
+- **Interactive Director Mode**: 웹 UI에서 대본 수정, 이미지 교체, 타이밍 조절, 오디오 미리듣기
+- **Unified Rendering Engine**: 단일 진실 공급원(SSOT)을 통한 일관된 렌더링
+- **AI 대본 생성**: Google Gemini가 미스터리, 밸런스 게임, 유머 등 다양한 주제로 대본 작성
+- **자동 에셋 소싱**: Pexels(고화질), Reddit(밈)에서 키워드 기반 이미지 수집
+- **고품질 TTS**: ElevenLabs, Typecast 지원
+- **다이내믹 렌더링**: Ken Burns 효과, 팝업 자막, 배경음악, SFX
+
+## 기술적 도전과 해결
+
+### 1. "WYSIWYG 문제" - 미리보기와 최종 영상이 다르다
+
+초기에는 Remotion(웹 미리보기)과 FFmpeg(최종 렌더링)가 각자의 방식으로 레이아웃을 계산했습니다. 같은 텍스트를 렌더링해도 줄바꿈 위치, 폰트 크기, Ken Burns 효과의 시작/끝 좌표가 미묘하게 달랐습니다.
+
+**문제의 근본 원인**:
+- Remotion은 CSS Box Model과 브라우저의 텍스트 렌더링 엔진을 사용
+- FFmpeg는 `drawtext` 필터로 픽셀 단위 좌표를 직접 계산
+- 두 시스템이 서로 다른 "진실의 원천"을 가짐
+
+**해결 방법 - Unified Rendering Engine**:
+
+`LayoutEngine`이라는 단일 계산 엔진을 만들어 Node-Canvas 기반으로 모든 레이아웃을 사전 계산합니다:
+
+```typescript
+// 1. LayoutEngine이 Render Manifest 생성
+const manifest = await layoutEngine.generateManifest(script);
+
+// 2. Remotion Player가 manifest를 읽어서 미리보기
+<RemotionPlayer renderManifest={manifest} />
+
+// 3. FFmpeg가 같은 manifest를 읽어서 최종 렌더링
+await ffmpegRenderer.render(manifest);
+```
+
+이제 웹 미리보기에서 본 것과 최종 영상이 100% 일치합니다. 텍스트 줄바꿈, 폰트 크기, Ken Burns 효과의 미세한 좌표까지 모두 동일합니다.
+
+### 2. Ken Burns 효과의 정밀한 동기화
+
+Ken Burns 효과(줌인/아웃/팬)를 구현할 때, 시작 좌표와 종료 좌표를 정확히 계산해야 합니다. 1px이라도 어긋나면 미리보기와 최종 영상에서 이미지가 다르게 보입니다.
+
+**해결 방법**:
+
+LayoutEngine이 이미지의 원본 크기와 목표 프레임 크기를 바탕으로 scale, x, y 좌표를 미리 계산합니다:
+
+```typescript
+const kenBurnsConfig = {
+  start: { scale: 1.0, x: 0, y: 0 },
+  end: { scale: 1.2, x: -100, y: -50 }
+};
+```
+
+Remotion과 FFmpeg는 이 좌표를 그대로 사용하기 때문에, 프레임 단위로 완벽하게 일치합니다.
+
+### 3. 텍스트 줄바꿈의 일관성
+
+한글 텍스트는 단어 경계가 불분명하여 줄바꿈이 까다롭습니다. CSS와 Canvas API가 서로 다른 방식으로 줄바꿈을 처리하면 미리보기와 최종 영상에서 자막 위치가 달라집니다.
+
+**해결 방법**:
+
+LayoutEngine이 Node-Canvas를 사용해 텍스트를 측정하고, 줄바꿈된 결과를 배열로 저장합니다:
+
+```typescript
+const wrappedLines = wrapText(canvas, text, maxWidth, font);
+// ["이것은 첫 번째 줄입니다.", "두 번째 줄입니다."]
+```
+
+Remotion은 이 배열을 받아 `<div>`로 렌더링하고, FFmpeg는 `drawtext` 필터에 줄바꿈된 텍스트를 직접 전달합니다. 결과적으로 줄바꿈 위치가 정확히 일치합니다.
+
+## 아키텍처
+
+### 기술 스택
+
+- **Frontend**: Next.js 15, Remotion (Preview Player), Tailwind CSS
+- **Backend**: Node.js, Express
+- **Core Rendering**: LayoutEngine (Node-Canvas 기반 SSOT)
+- **Final Rendering**: FFmpeg
+- **AI**: Google Gemini Pro
+- **Media**: Pexels API, ElevenLabs API
+
+### 데이터 흐름
+
+```
+1. AI Script Generation (Gemini)
+   ↓
+2. Asset Sourcing (Pexels/Reddit)
+   ↓
+3. LayoutEngine → Render Manifest (SSOT)
+   ↓
+4. Web Preview (Remotion reads manifest)
+   ↓
+5. User Edits (Interactive Director Mode)
+   ↓
+6. Final Rendering (FFmpeg reads updated manifest)
+```
+
+## 배운 점
+
+### WYSIWYG는 생각보다 어렵다
+
+웹 미리보기와 최종 영상을 일치시키는 것이 이렇게 어려울 줄 몰랐습니다. 단순히 같은 코드를 실행하는 것이 아니라, 서로 다른 렌더링 엔진(브라우저 vs FFmpeg)을 하나의 진실 공급원으로 통합해야 했습니다.
+
+### 측정 가능한 단위로 설계하라
+
+초기에는 "줌인 효과를 좀 더 강하게"처럼 추상적인 파라미터를 사용했습니다. 하지만 Unified Rendering Engine을 만들면서 모든 것을 픽셀, 초, 프레임 단위로 정확히 측정하게 되었습니다. 이는 디버깅과 테스트를 훨씬 쉽게 만들었습니다.
+
+### 단일 진실 공급원(SSOT)의 위력
+
+Render Manifest라는 하나의 데이터 구조를 만들어 Remotion과 FFmpeg가 공유하도록 한 것이 가장 중요한 설계 결정이었습니다. 이후 버그가 생기면 Manifest를 확인하면 되고, 새로운 기능을 추가할 때도 Manifest 스키마만 확장하면 됩니다.
+
+## 향후 계획
+
+- **실시간 TTS 미리듣기**: 대본 수정 시 ElevenLabs API를 호출하여 즉시 재생
+- **템플릿 시스템**: 다양한 쇼츠 스타일을 템플릿으로 제공
+- **배치 생성**: 여러 주제를 한 번에 입력하여 대량 생성
+
+## 마치며
+
+Short Creator는 단순한 자동화 도구가 아니라, "웹 미리보기와 최종 영상을 어떻게 일치시킬 것인가"라는 근본적인 문제를 해결한 프로젝트입니다. Unified Rendering Engine을 통해 WYSIWYG를 구현하면서, 진실 공급원(SSOT)의 중요성과 측정 가능한 설계의 가치를 배웠습니다.

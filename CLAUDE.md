@@ -81,12 +81,22 @@ thumbnail: "/images/projects/thumbnail.jpg"
 ## Content Management
 
 ### 새 프로젝트 추가
+
+**📖 상세 가이드**: 프로젝트 포스트 작성 방법은 [`docs/POST_WRITING_GUIDE.md`](docs/POST_WRITING_GUIDE.md)를 참고하세요.
+
+**빠른 시작**:
 1. `content/projects/` 디렉토리에 폴더 생성
 2. `index.mdx` 파일 작성 (frontmatter 포함)
 3. (선택) `privacy.mdx` 파일 작성
 4. (선택) 썸네일 이미지를 `public/images/projects/`에 추가
 
 **이미지가 없어도 됩니다**: 썸네일이 없으면 프로젝트 제목의 첫 글자가 자동으로 표시됩니다.
+
+**작성 팁**:
+- 기술 선택 이유를 설명하세요 ("왜"에 집중)
+- 도전 과정과 해결 방법을 상세히 기록하세요
+- 단순 나열이 아닌 스토리텔링으로 작성하세요
+- 구체적인 예시와 숫자를 포함하세요
 
 ### 프로젝트 데이터 흐름
 ```
